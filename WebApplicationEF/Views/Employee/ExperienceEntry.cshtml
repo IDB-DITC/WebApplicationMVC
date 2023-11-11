@@ -1,0 +1,65 @@
+﻿@model WebApplicationEF.Models.Employee
+
+
+@{
+    Layout = null;
+
+}
+
+
+
+
+
+<table class="table-active table-borderless table table-hover table-responsive">
+    <thead class="table-info text-lg-center">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Experiences.First().Designation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Experiences.First().Comapany)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Experiences.First().StartDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Experiences.First().EndDate)
+            </th>
+            <th>
+                <button class="btn btn-sm btn-close-white btn-outline-success" type="submit" name="command" value="add">Add Experience</button>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (int i = 0; i < Model.Experiences.Count; i++)
+        {
+            <tr>
+                <td class="form-group">
+
+                    @Html.HiddenFor(m => Model.Experiences[i].EmployeeID)
+                    @Html.TextBoxFor(m => Model.Experiences[i].Designation, new { @class = "form-control" })
+                </td>
+                <td class="form-group">
+                    @Html.TextBoxFor(m => Model.Experiences[i].Comapany, new { @class = "form-control" })
+                </td>
+                <td class="form-group">
+                    @*@Html.TextBoxFor(m => Model.Experiences[i].StartDate, "{0:mm/dd/yyyy}", new { type = "date", value = Model.Experiences[i].StartDate, @class = "form-control" })*@
+                    @Html.EditorFor(m => Model.Experiences[i].StartDate, new { htmlAttributes = new { @class = "form-control" } })
+                </td>
+                <td class="form-group">
+                    @Html.EditorFor(m => Model.Experiences[i].EndDate, new { htmlAttributes = new { @class = "form-control" } })
+                </td>
+                <td>
+                    <button class="btn btn-sm btn-close-white btn-outline-success" type="submit" name="command" value="delete-@i">Delete</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="4">
+                Total Experience : @Model.Experiences.Count
+            </td>
+        </tr>
+    </tfoot>
+</table>
